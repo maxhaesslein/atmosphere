@@ -1,4 +1,4 @@
-function EditableText( text, localName, maxLength ) {
+function EditableText( text, localName, maxLength, callback ) {
 
 	if( ! localName ) {
 		localName = 'span';
@@ -7,6 +7,7 @@ function EditableText( text, localName, maxLength ) {
 	this.text = text;
 	this.localName = localName;
 	this.maxLength = maxLength;
+	this.callback = callback;
 
 	return this.createHTMLElement();
 }
@@ -34,6 +35,10 @@ EditableText.prototype.updateText = function(newText) {
 	const textElement = document.createElement(this.localName);
 	textElement.innerText = newText;
 	this.element.appendChild(textElement);
+
+	if( this.callback ) {
+		this.callback(newText);
+	}
 
 	this.text = newText;
 }

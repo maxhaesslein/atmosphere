@@ -115,6 +115,7 @@ input[type="range"] {
 	background: transparent;
 	cursor: pointer;
 	width: 15rem;
+	width: 200px;
 }
 
 	input[type="range"]:focus {

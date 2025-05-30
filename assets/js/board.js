@@ -1,5 +1,6 @@
 function Board( id ){
 	this.id = id;
+	this.title = 'Board #'+id;
 
 	const htmlElement = this.createHTMLElement();
 	boards.insertBefore(htmlElement, boards.querySelector('.board-new'));
@@ -18,7 +19,7 @@ Board.prototype.createHTMLElement = function(){
 	const drapDropHandler = new DragDropHandler();
 	title.appendChild(drapDropHandler);
 
-	const headline = new EditableText('Board #'+this.id, 'h2', 16);
+	const headline = new EditableText(this.title, 'h2', 16, this.updateTitle.bind(this));
 	title.appendChild(headline);
 
 	const removeButton = new Button('Remove Board', ['remove', 'remove-board'], this.removeBoard, this);
@@ -80,6 +81,10 @@ Board.prototype.createHTMLElement = function(){
 	return element;
 };
 
+Board.prototype.updateTitle = function( newTitle ) {
+	this.title = newTitle;
+}
+
 Board.prototype.addTrack = function(){
 	
 	const track = new Track();
@@ -89,7 +94,7 @@ Board.prototype.addTrack = function(){
 
 Board.prototype.removeBoard = function(){
 
-	if( ! window.confirm('Remove this Board?') ) {
+	if( ! window.confirm('Remove the board "'+this.title+'"?') ) {
 		return;
 	}
 
