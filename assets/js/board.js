@@ -21,6 +21,9 @@ Board.prototype.createHTMLElement = function(){
 	const headline = new EditableText('Board #'+this.id, 'h2');
 	title.appendChild(headline);
 
+	const removeButton = new Button('Remove Board', ['remove', 'remove-board'], this.removeBoard, this);
+	title.appendChild(removeButton)
+
 	element.appendChild(title);
 
 
@@ -72,6 +75,8 @@ Board.prototype.createHTMLElement = function(){
 	element.appendChild(boardMeta);
 
 
+	this.element = element;
+
 	return element;
 };
 
@@ -80,4 +85,13 @@ Board.prototype.addTrack = function(){
 	const track = new Track();
 	this.tracks.insertBefore(track, this.tracks.querySelector('.track-new'));
 
+}
+
+Board.prototype.removeBoard = function(){
+
+	if( ! window.confirm('Remove this Board?') ) {
+		return;
+	}
+
+	this.element.remove();
 }
