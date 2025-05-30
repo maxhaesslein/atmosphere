@@ -88,12 +88,18 @@ Board.prototype.updateTitle = function( newTitle ) {
 Board.prototype.addTrack = function(){
 	
 	const track = new Track();
-	this.tracks.insertBefore(track, this.tracks.querySelector('.track-new'));
+
+	// TODO: check, if this is a valid track before adding it (new Track() may return early)
+
+	this.tracks.insertBefore(track.createHTMLElement(), this.tracks.querySelector('.track-new'));
+
+	track.init();
 
 }
 
 Board.prototype.removeBoard = function(){
 
+	// TODO: replace confirm() with custom designed overlay
 	if( ! window.confirm('Remove the board "'+this.title+'"?') ) {
 		return;
 	}
