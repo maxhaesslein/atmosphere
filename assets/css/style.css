@@ -227,10 +227,6 @@ input[type="range"] {
 	overflow-x: auto;
 }
 
-	.board.dragging {
-		opacity: 0.5;
-	}
-
 	.board-new {
 		min-width: 200px;
 		flex-grow: 1;
