@@ -18,7 +18,7 @@ Board.prototype.createHTMLElement = function(){
 	const drapDropHandler = new DragDropHandler();
 	title.appendChild(drapDropHandler);
 
-	const headline = new EditableText('Board #'+this.id, 'h2');
+	const headline = new EditableText('Board #'+this.id, 'h2', 16);
 	title.appendChild(headline);
 
 	const removeButton = new Button('Remove Board', ['remove', 'remove-board'], this.removeBoard, this);

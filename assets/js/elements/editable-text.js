@@ -1,4 +1,4 @@
-function EditableText( text, localName ) {
+function EditableText( text, localName, maxLength ) {
 
 	if( ! localName ) {
 		localName = 'span';
@@ -6,6 +6,7 @@ function EditableText( text, localName ) {
 
 	this.text = text;
 	this.localName = localName;
+	this.maxLength = maxLength;
 
 	return this.createHTMLElement();
 }
@@ -48,6 +49,9 @@ EditableText.prototype.changeContent = function(){
 	const input = document.createElement('input');
 	input.classList.add('editable-text');
 	input.value = this.text;
+	if( this.maxLength ) {
+		input.maxLength = this.maxLength;
+	}
 
 	const save = document.createElement('button');
 	save.classList.add('editable-text-save');
