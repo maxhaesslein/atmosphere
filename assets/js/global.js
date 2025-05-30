@@ -51,7 +51,7 @@ const inputRange = {
 		if( type === 'volume' ) {
 			text += '%';
 		} else if( type === 'fade' ) {
-			text += 'ms';
+			text = parseInt(text)/1000+'s';
 		}
 
 		rangeValue.innerText = text;
