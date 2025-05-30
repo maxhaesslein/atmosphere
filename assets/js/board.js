@@ -1,21 +1,22 @@
-function Board( id ){
+function Board( id, context ){
 	this.id = id;
 
-	const htmlElement = this.createHTMLElement();
+	const htmlElement = this.createHTMLElement(context);
 	boards.insertBefore(htmlElement, boards.querySelector('.board-new'));
 }
 
-Board.prototype.createHTMLElement = function(){
+Board.prototype.createHTMLElement = function(context){
 
 	const element = document.createElement('section');
 	element.classList.add('board');
 	element.id = 'board-'+this.id;
+	element.draggable = true;
 
 
 	const title = document.createElement('div');
 	title.classList.add('board-title');
 
-	const drapDropHandler = new DragDropHandler();
+	const drapDropHandler = new DragDropHandler('.board', context);
 	title.appendChild(drapDropHandler);
 
 	const headline = new EditableText('Board #'+this.id, 'h2');

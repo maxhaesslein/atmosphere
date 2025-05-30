@@ -34,7 +34,7 @@ const ButtonAddBoard = {
 	},
 
 	newBoard: function(){
-		const board = new Board(++ButtonAddBoard.id);
+		const board = new Board(++ButtonAddBoard.id, boards);
 	}
 
 };
