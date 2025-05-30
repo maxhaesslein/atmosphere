@@ -60,6 +60,9 @@ Board.prototype.createHTMLElement = function(){
 	} );
 	boardMeta.appendChild(volume);
 
+	const Single = new Checkbox( 'Play Single Track', 'single', true );
+	boardMeta.appendChild(Single);
+
 	const Loop = new Checkbox( 'Loop Tracks', 'loop', true );
 	boardMeta.appendChild(Loop);
 
