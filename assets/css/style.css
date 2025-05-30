@@ -219,8 +219,9 @@ input[type="range"] {
 }
 
 	.board-new {
-		min-width: var(--board-width);
+		min-width: 200px;
 		flex-grow: 1;
+		flex-shrink: 1;
 		box-sizing: border-box;
 		text-align: center;
 		display: flex;
@@ -230,6 +231,7 @@ input[type="range"] {
 
 	.board {
 		width: var(--board-width);
+		flex-shrink: 0;
 		height: calc(100vh - var(--global-controls-height));
 		box-sizing: border-box;
 		border-right: 1px solid #484848;
