@@ -9,98 +9,25 @@
 
 	<link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
 
-	<script type="text/javascript" src="assets/js/global.js" defer></script>
+	<script type="text/javascript" src="assets/js/app.js" defer></script>
+	<script type="text/javascript" src="assets/js/board.js" defer></script>
+	<script type="text/javascript" src="assets/js/button.js" defer></script>
+	<script type="text/javascript" src="assets/js/checkbox.js" defer></script>
+	<script type="text/javascript" src="assets/js/drag-drop-handler.js" defer></script>
+	<script type="text/javascript" src="assets/js/range.js" defer></script>
+	<script type="text/javascript" src="assets/js/track.js" defer></script>
 
 </head>
 <body>
-<main class="main">
+<main id="canvas" class="canvas">
 
-	<section class="boards">
-
-		<section class="board">
-
-			<div class="board-title">
-				<span class="drag-drop-handle"></span>
-				<h2>Board Title</h2>
-			</div>
-
-			<div class="tracks">
-
-				<div class="track">
-					<span class="drag-drop-handle"></span>
-					<button class="play-pause">Track Play/Pause</button>
-					<label><input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-				</div>
-
-				<div class="track">
-					<span class="drag-drop-handle"></span>
-					<button class="play-pause">Track Play/Pause</button>
-					<label><input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-				</div>
-
-				<div class="track">
-					<span class="drag-drop-handle"></span>
-					<button class="play-pause">Track Play/Pause</button>
-					<label><input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-				</div>
-
-				<div class="track-new">
-					<button class="add add-track">Add Track</button>
-				</div>
-
-			</div>
-
-			<div class="board-meta">
-				<label>Fade <input class="fade-time" type="range" min="0" max="10000" value="5000" step="250"> <span class="range-value">5s</span></label>
-				<label>Volume <input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-				<label><input type="checkbox" checked> Loop Tracks on this Board</label>
-			</div>
-
-		</section>
-
-
-		<section class="board">
-
-			<div class="board-title">
-				<span class="drag-drop-handle"></span>
-				<h2>Board Title</h2>
-			</div>
-
-			<div class="tracks">
-
-				<div class="track">
-					<span class="drag-drop-handle"></span>
-					<button class="play-pause">Track Play/Pause</button>
-					<label><input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-				</div>
-
-				<div class="track">
-					<span class="drag-drop-handle"></span>
-					<button class="play-pause">Track Play/Pause</button>
-					<label><input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-				</div>
-
-				<div class="track-new">
-					<button class="add add-track">Add Track</button>
-				</div>
-
-			</div>
-
-			<div class="board-meta">
-				<label>Fade <input class="fade-time" type="range" min="0" max="10000" value="5000" step="250"> <span class="range-value">5s</span></label>
-				<label>Volume <input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-				<label><input type="checkbox" checked> Loop Tracks on this Board</label>
-			</div>
-
-		</section>
-
+	<section id="boards" class="boards">
 		<section class="board-new">
-			<button class="add add-board">Add Board</button>
+			<button id="add-board" class="add add-board">Add Board</button>
 		</section>
-
 	</section>
 
-	<section class="global-controls">
+	<section id="globalControls" class="global-controls">
 		<div>
 			<button class="play-pause">Global Play/Pause</button>
 			<label>Global Volume <input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>

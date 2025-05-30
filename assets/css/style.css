@@ -160,7 +160,7 @@ input[type="range"] {
 		background-color: var(--color-highlight); 
 	}
 
-.main {
+.canvas {
 	width: 100%;
 	min-height: 100vh;
 	box-sizing: border-box;
