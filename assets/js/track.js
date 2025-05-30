@@ -28,13 +28,20 @@ Track.prototype.createHTMLElement = function( youtube ){
 
 	element.appendChild(this.youtube.createHTMLElement());
 
+	const timeline = document.createElement('progress');
+	timeline.value = 0;
+	timeline.max = 100;
+	element.appendChild(timeline);
+
+	this.timeline = timeline;
+
 	this.element = element;
 
 	return element;
 }
 
 Track.prototype.init = function(){
-	this.youtube.init();
+	this.youtube.init(this.timeline);
 }
 
 Track.prototype.playPause = function(){

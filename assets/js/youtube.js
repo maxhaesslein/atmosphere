@@ -15,7 +15,9 @@ function YouTube( url ) {
 	this.internalId = Date.now().toString(36) + Math.random().toString(36).substring(2, 12).padStart(12, 0); // TODO: replace with function call
 }
 
-YouTube.prototype.init = function(){
+YouTube.prototype.init = function(timeline){
+
+	this.timeline = timeline;
 
 	if( window.YT && window.YT.Player ) {
 		// youtube api is already loaded
@@ -38,7 +40,6 @@ YouTube.prototype.createHTMLElement = function(){
 
 	const player = document.createElement('div');
 	player.id = this.internalId;
-
 	element.appendChild(player);
 
 	this.element = element;
@@ -71,7 +72,7 @@ YouTube.prototype.loadAPI = function(){
 YouTube.prototype.embed = function(){
 
 	this.player = new YT.Player(this.internalId, {
-		width: '200',
+		width: '256',
 		height: '200',
 		videoId: this.youtubeid,
 		host: 'https://www.youtube-nocookie.com',
@@ -99,8 +100,35 @@ YouTube.prototype.youtubestatechange = function(e){
 	} else {
 		this.playing = false;
 	}
-
 	
+}
+
+YouTube.prototype.play = function(){
+	this.player.playVideo();
+	this.updateTimeInterval = setInterval(this.updateTimeline.bind(this), 200);
+}
+
+YouTube.prototype.updateTimeline = function(){
+
+	if( ! this.timeline ) {
+		return;
+	}
+
+	const time = this.player.getCurrentTime();
+	const duration = this.player.getDuration();
+
+	if( time === undefined || duration === undefined ) {
+		return;
+	}
+	const percent = time/duration*100;
+
+	this.timeline.value = percent;
+
+}
+
+YouTube.prototype.pause = function(){
+	this.player.pauseVideo();
+	clearInterval(this.updateTimeInterval);
 }
 
 YouTube.prototype.playPause = function() {
@@ -110,10 +138,10 @@ YouTube.prototype.playPause = function() {
 	}
 
 	if( this.playing ) {
-		this.player.pauseVideo();
+		this.pause();
 		return false;
 	} else {
-		this.player.playVideo();
+		this.play();
 		return true;
 	}
 
