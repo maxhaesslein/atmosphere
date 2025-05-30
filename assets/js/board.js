@@ -18,8 +18,7 @@ Board.prototype.createHTMLElement = function(){
 	const drapDropHandler = new DragDropHandler();
 	title.appendChild(drapDropHandler);
 
-	const headline = document.createElement('h2');
-	headline.innerText = 'Board #'+this.id;
+	const headline = new EditableText('Board #'+this.id, 'h2');
 	title.appendChild(headline);
 
 	element.appendChild(title);

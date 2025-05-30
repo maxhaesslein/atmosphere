@@ -245,6 +245,7 @@ input[type="range"] {
 			background: #222;
 			text-align: center;
 			box-sizing: border-box;
+			height: 55px;
 			padding: 10px 46px;
 			border-bottom: 1px solid #000;
 			position: relative;
@@ -259,6 +260,7 @@ input[type="range"] {
 
 			.board-title h2 {
 				display: inline-block;
+				cursor: text;
 			}
 
 		.tracks {
