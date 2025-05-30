@@ -264,6 +264,8 @@ input[type="range"] {
 		.tracks {
 			flex-grow: 1;
 			overflow-y: auto;
+			display: flex;
+			flex-direction: column;
 		}
 
 			.track {
@@ -284,8 +286,13 @@ input[type="range"] {
 				}
 
 			.track-new {
+				flex-grow: 1;
+				box-sizing: border-box;
 				padding: 20px 10px;
 				text-align: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 
 		.board-meta {
