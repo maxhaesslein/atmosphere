@@ -1,12 +1,17 @@
-function Track() {
+function Track( trackData ) {
+
+	this.data = trackData;
+
+	this.data.playing = false; // always start in stopped state
 
 	// TODO: replace prompt() with custom designed overlay
-	const url = window.prompt('YouTube Video URL');
-	if( ! url ) return;
+	if( ! this.data.url ) {
+		const url = window.prompt('YouTube Video URL');
+		if( ! url ) return;
+		this.data.url = url;
+	}
 
-	this.youtube = new YouTube(url);
-
-	this.playing = false;
+	this.youtube = new YouTube(this.data.url);
 
 }
 
@@ -46,9 +51,9 @@ Track.prototype.init = function(){
 
 Track.prototype.playPause = function(){
 
-	this.playing = this.youtube.playPause();
+	this.data.playing = this.youtube.playPause();
 
-	if( this.playing ) {
+	if( this.data.playing ) {
 		this.element.classList.add('playing');
 	} else {
 		this.element.classList.remove('playing');

@@ -15,8 +15,8 @@ Range.prototype.createHTMLElement = function(){
 	input.type = 'range';
 	if( this.args.min !== undefined ) input.min = this.args.min;
 	if( this.args.max !== undefined ) input.max = this.args.max;
-	if( this.args.value !== undefined ) input.value = this.args.value;
 	if( this.args.step !== undefined ) input.step = this.args.step;
+	if( this.args.value !== undefined && this.args.value.data !== undefined ) input.value = this.args.value.data;
 	element.appendChild(input);
 
 	const rangeValue = document.createElement('span');
@@ -37,6 +37,6 @@ Range.prototype.init = function(){
 }
 
 Range.prototype.updateRange = function(e){
-	this.value = this.input.value;
-	this.rangeValue.innerText = this.value+this.args.unit;
+	this.args.value.data = this.input.value;
+	this.rangeValue.innerText = this.input.value+this.args.unit;
 }

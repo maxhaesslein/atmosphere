@@ -1,7 +1,9 @@
 
 // global variables:
 let boards,
-	globalControls;
+	globalControls,
+	data = {id: 0, boards: []},
+	session;
 
 
 document.addEventListener( 'DOMContentLoaded', init, false );
@@ -18,13 +20,14 @@ function init(){
 		return;
 	}
 
+	session = new Session();
+	session.load();
+
 	ButtonAddBoard.init();
 }
 
 
 const ButtonAddBoard = {
-
-	id: 0,
 
 	init: function(){
 		const button = document.getElementById('add-board');
@@ -34,7 +37,7 @@ const ButtonAddBoard = {
 	},
 
 	newBoard: function(){
-		const board = new Board(++ButtonAddBoard.id);
+		new Board(++data.id);
 	}
 
 };
