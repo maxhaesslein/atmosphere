@@ -77,8 +77,12 @@ YouTube.prototype.embed = function(){
 		videoId: this.youtubeid,
 		host: 'https://www.youtube-nocookie.com',
 		playerVars: {
+			controls: 0,
+			modestbranding: 0,
+			rel: 0,
+			showinfo: 0,
 			origin: window.location.host, // needed for youtube-nocookie.com
-			'playsinline': 1
+			playsinline: 1
 		},
 		events: {
 			onReady: this.youtubeready.bind(this),
