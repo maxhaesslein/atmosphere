@@ -7,10 +7,6 @@ function Checkbox( title, name, checked ) {
 	return this.createHTMLElement();
 }
 
-/*
-<label><input type="checkbox" checked> Loop Tracks on this Board</label>
-*/
-
 Checkbox.prototype.createHTMLElement = function(){
 
 	const element = document.createElement('label');
