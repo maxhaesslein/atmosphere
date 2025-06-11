@@ -6,13 +6,16 @@ function Board( id, boardData ){
 		};
 	}
 
-	this.data = boardData;
+	const defaultData = {
+		title: 'Board #'+id,
+		tracks: [],
+		volume: {data: 80}, // we need the object, to pass this as a reference to range.js
+		fadeTime: {data: 5000}, // we need the object, to pass this as a reference to range.js
+	};
 
-	// TODO: better handling of default values
-	if( ! this.data.title ) this.data.title = 'Board #'+id;
-	if( ! this.data.tracks ) this.data.tracks = [];
-	if( ! this.data.volume ) this.data.volume = {data: 80}; // we need the object, to pass this as a reference to range.js
-	if( ! this.data.fadeTime ) this.data.fadeTime = {data: 5000}; // we need the object, to pass this as a reference to range.js
+	this.data = { ...defaultData, ...boardData };
+
+	console.log(this.data);
 
 	data.boards.push(this.data);
 
