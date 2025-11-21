@@ -30,9 +30,9 @@
 	<section class="global-controls">
 
 		<section id="scenes" class="scenes">
-			<button class="active scene-0">Scene 0</button>
-			<button class="scene-1">Scene 1</button>
-			<button id="scene-new" class="add add-scene">Add Scene</button>
+			<button class="scene-button scene-button--active">Scene 1</button>
+			<button class="scene-button">Scene 2</button>
+			<button id="scene-new" class="scene-button add">+ Add Scene</button>
 		</section>
 
 		<section id="controls" class="controls">
@@ -44,7 +44,7 @@
 
 	<section id="boards" class="boards">
 		<section class="board-new">
-			<button id="add-board" class="add add-board">Add Board</button>
+			<button id="add-board" class="add add-board">+ Add Board</button>
 		</section>
 	</section>
 

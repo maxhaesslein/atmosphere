@@ -60,7 +60,7 @@ Board.prototype.createHTMLElement = function(){
 	const trackNew = document.createElement('div');
 	trackNew.classList.add('track-new');
 
-	const trackNewButton = new Button('Add Track', ['add', 'add-track'], this.addTrack, this);
+	const trackNewButton = new Button('+ Add Track', ['add', 'add-track'], this.addTrack, this);
 	trackNew.appendChild(trackNewButton);
 
 	tracks.appendChild(trackNew);
