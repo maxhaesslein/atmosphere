@@ -13,6 +13,7 @@
 
 	<script type="text/javascript" src="assets/js/app.js" defer></script>
 	<script type="text/javascript" src="assets/js/board.js" defer></script>
+	<script type="text/javascript" src="assets/js/scene.js" defer></script>
 	<script type="text/javascript" src="assets/js/session.js" defer></script>
 	<script type="text/javascript" src="assets/js/track.js" defer></script>
 	<script type="text/javascript" src="assets/js/youtube.js" defer></script>
@@ -30,9 +31,7 @@
 	<section class="global-controls">
 
 		<section id="scenes" class="scenes">
-			<button class="scene-button scene-button--active">Scene 1</button>
-			<button class="scene-button">Scene 2</button>
-			<button id="scene-new" class="scene-button add">+ Add Scene</button>
+			<button id="scene-new" class="scene-button scene-new add">+ Add Scene</button>
 		</section>
 
 		<section id="controls" class="controls">
@@ -42,10 +41,7 @@
 
 	</section>
 
-	<section id="boards" class="boards">
-		<section class="board-new">
-			<button id="add-board" class="add add-board">+ Add Board</button>
-		</section>
+	<section id="scene" class="scene">
 	</section>
 
 </main>

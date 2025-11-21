@@ -1,9 +1,14 @@
 
 // global variables:
-let boards,
+let scenes,
+	scene,
 	controls,
-	data = {id: 0, boards: []},
-	session;
+	session,
+	data = {
+		sceneId: 0,
+		scenes: {},
+		activeScene: false,
+	};
 
 
 document.addEventListener( 'DOMContentLoaded', init, false );
@@ -12,32 +17,47 @@ function init(){
 	console.info('starting app …');
 
 	const canvas = document.getElementById('canvas');
-	boards = document.getElementById('boards');
+	scenes = document.getElementById('scenes');
+	scene = document.getElementById('scene');
 	controls = document.getElementById('controls');
 
-	if( ! canvas || ! boards || ! controls ) {
-		console.warn('missing HTML elements!', canvas, boards, controls);
+	if( ! canvas || ! scene || ! controls ) {
+		console.warn('missing HTML elements!', canvas, scenes, scene, controls);
 		return;
 	}
 
 	session = new Session();
 	session.load();
 
-	ButtonAddBoard.init();
+	ButtonAddScene.init();
 }
 
 
-const ButtonAddBoard = {
+const ButtonAddScene = {
 
 	init: function(){
-		const button = document.getElementById('add-board');
+		const button = document.getElementById('scene-new');
 		if( ! button ) return;
 
-		button.addEventListener('click', ButtonAddBoard.newBoard);
+		button.addEventListener('click', ButtonAddScene.newScene);
 	},
 
-	newBoard: function(){
-		new Board(++data.id);
+	newScene: function(){
+
+		const sceneNumber = ++data.sceneId;
+
+		const sceneId = 'scene-'+sceneNumber;
+
+		// TODO: replace prompt() with custom designed overlay
+		let title = window.prompt('Scene title?');
+		if( ! title ) title = 'Scene #'+sceneNumber;
+
+		let sceneData = {
+			'title': title
+		};
+
+		new Scene(sceneId, sceneData, true);
+
 		session.save();
 	}
 

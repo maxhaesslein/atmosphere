@@ -248,14 +248,32 @@ input[type="range"] {
 	.scene-button {
 		border-radius: 15px 15px 0 0;
 	}
+	
+		.scene-button.add {
+			border-bottom-style: solid;
+		}
 
 	.scene-button--active {
 		border-bottom: #333;
 		background: #111;
 	}
 
+.scene {
+	--scene-height: calc(100vh - var(--global-controls-height));
+	min-height: var(--scene-height);
+}
+
+	.scene-controls {
+		background: #222;
+		border-bottom: 1px solid #333;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px;
+	}
+
 .boards {
-	--boards-height: calc(100vh - var(--global-controls-height));
+	--boards-height: var(--scene-height);
 	min-height: var(--boards-height);
 	display: flex;
 	overflow-x: auto;

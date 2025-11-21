@@ -1,35 +1,27 @@
-function Board( id, boardData ){
+function Board( boardData, sceneId ){
 
-	if( ! boardData ) {
-		boardData = {
-			'id': id
-		};
+	if( ! boardData.id ) {
+		console.warn('board data is missing id!');
+		return;
 	}
+
+	const id = boardData.id;
 
 	const defaultData = {
-		title: 'Board #'+id,
-		tracks: [],
-		volume: {data: 80}, // we need the object, to pass this as a reference to range.js
-		fadeTime: {data: 5000}, // we need the object, to pass this as a reference to range.js
+		'scene': sceneId,
+		'title': 'Board #'+id,
+		'tracks': [],
+		'volume': {data: 80}, // we need the object, to pass this as a reference to range.js
+		'fadeTime': {data: 5000}, // we need the object, to pass this as a reference to range.js
 	};
 
-	this.data = { ...defaultData, ...boardData };
+	data.scenes[sceneId].boards[id] = { ...defaultData, ...boardData };
 
-	console.log(this.data);
+	this.data = data.scenes[sceneId].boards[id];
 
-	data.boards.push(this.data);
+	console.log('new board', this.data);
 
-	const htmlElement = this.createHTMLElement();
-	boards.insertBefore(htmlElement, boards.querySelector('.board-new'));
-
-	// init saved tracks:
-	const tracksToInit = JSON.parse(JSON.stringify(this.data.tracks)); // make a copy
-	this.data.tracks = [];
-	for( const trackData of tracksToInit ) {
-		if( ! trackData.url ) continue;
-		this.addTrack(trackData);
-	}
-
+	return this;
 }
 
 Board.prototype.createHTMLElement = function(){
@@ -45,7 +37,7 @@ Board.prototype.createHTMLElement = function(){
 	const drapDropHandler = new DragDropHandler();
 	title.appendChild(drapDropHandler);
 
-	const headline = new EditableText(this.data.title, 'h2', 16, this.updateTitle.bind(this));
+	const headline = new EditableText(this.data.title, 'h3', 16, this.updateTitle.bind(this));
 	title.appendChild(headline);
 
 	const removeButton = new Button('Remove Board', ['remove', 'remove-board'], this.removeBoard, this);
@@ -107,6 +99,17 @@ Board.prototype.createHTMLElement = function(){
 	return element;
 };
 
+Board.prototype.initTracks = function(){
+
+	const tracksToInit = JSON.parse(JSON.stringify(this.data.tracks)); // make a copy
+	this.data.tracks = [];
+	for( const trackData of tracksToInit ) {
+		if( ! trackData.url ) continue;
+		this.addTrack(trackData);
+	}
+
+}
+
 Board.prototype.updateTitle = function( newTitle ) {
 	this.data.title = newTitle;
 	session.save();
@@ -123,15 +126,11 @@ Board.prototype.addTrack = function( trackData ){
 	const track = new Track(trackData);
 
 	// TODO: check, if this is a valid track before adding it (new Track() may return early)
+	if( ! trackData.url ) return;
 
 	this.tracks.insertBefore(track.createHTMLElement(), this.tracks.querySelector('.track-new'));
-
-	if( trackData.url ) {
-		this.data.tracks.push(trackData);
-		track.init(trackData);
-	}
-
-	session.save();
+	this.data.tracks.push(trackData);
+	track.init(trackData);
 
 }
 
@@ -144,9 +143,10 @@ Board.prototype.removeBoard = function(){
 
 	this.element.remove();
 
-	const index = data.boards.indexOf(this.data);
-	if( index !== -1 ) {
-		data.boards.splice(index, 1);
+	delete data.scenes[this.data.scene].boards[this.data.id];
+
+	if( Object.keys(data.scenes[this.data.scene].boards).length < 1 ) {
+		data.scenes[this.data.scene].boardId = 0;
 	}
 
 	session.save();

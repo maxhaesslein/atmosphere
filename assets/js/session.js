@@ -1,14 +1,13 @@
 function Session() {
 
-	// TODO: make sure the browser supports localStorage; otherwise, show warning, but continue
-
     try {
-        const testKey = '__storage_test__';
+        const testKey = 'atmosphere-storage-test';
         window.localStorage.setItem(testKey, '1');
         window.localStorage.removeItem(testKey);
 		this.savingEnabled = true;
     } catch (e) {
-        return false;
+    	this.savingEnabled = false;
+        return;
     }
 
 }
@@ -35,7 +34,14 @@ Session.prototype.load = function(){
 
 	console.info('loading data …');
 
-	data = JSON.parse(storedData);
+	const newData = JSON.parse(storedData);
+
+	if( ! newData.scenes ) {
+		console.warn( 'saved data is invalid! will not load data.' );
+		return;
+	}
+
+	data = newData;
 
 	this.initNewData();
 
@@ -45,11 +51,22 @@ Session.prototype.initNewData = function(){
 
 	this.savingEnabled = false;
 
-	// init saved boards:
-	const boards = JSON.parse(JSON.stringify(data.boards)); // make a copy
-	data.boards = [];
-	for( const board of boards ) {
-		new Board(board.id, board);
+	// init saved scenes:
+	console.log('data', data)
+	for( const sceneId of Object.keys(data.scenes) ) {
+		const sceneData = data.scenes[sceneId];
+
+		if( ! sceneData || ! sceneData.id ) {
+			console.warn('scene is missing data, skipping!', sceneId, sceneData);
+			continue;
+		}
+
+		let activeScene = false;
+		if( sceneData.id === data.activeScene ) {
+			activeScene = true;
+		}
+
+		new Scene(sceneId, sceneData, activeScene);
 	}
 
 	this.savingEnabled = true;

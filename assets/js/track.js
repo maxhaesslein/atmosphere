@@ -4,8 +4,8 @@ function Track( trackData ) {
 
 	this.data.playing = false; // always start in stopped state
 
-	// TODO: replace prompt() with custom designed overlay
 	if( ! this.data.url ) {
+		// TODO: replace prompt() with custom designed overlay
 		const url = window.prompt('YouTube Video URL');
 		if( ! url ) return;
 		this.data.url = url;
