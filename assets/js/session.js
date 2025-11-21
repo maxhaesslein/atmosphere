@@ -2,17 +2,20 @@ function Session() {
 
 	// TODO: make sure the browser supports localStorage; otherwise, show warning, but continue
 
-	this.saving = true;
-
-	const autosaveDelay = 10; // in seconds
-
-	this.heartbeat = setInterval( this.save.bind(this), autosaveDelay*1000); // autosave every x seconds
+    try {
+        const testKey = '__storage_test__';
+        window.localStorage.setItem(testKey, '1');
+        window.localStorage.removeItem(testKey);
+		this.savingEnabled = true;
+    } catch (e) {
+        return false;
+    }
 
 }
 
 Session.prototype.save = function(){
 
-	if( ! this.saving ) return;
+	if( ! this.savingEnabled ) return;
 
 	console.info('saving …');
 
@@ -24,6 +27,8 @@ Session.prototype.save = function(){
 
 Session.prototype.load = function(){
 	
+	if( ! this.savingEnabled ) return;
+
 	const storedData = localStorage.getItem('atmosphere-data');
 
 	if( ! storedData ) return;
@@ -38,7 +43,7 @@ Session.prototype.load = function(){
 
 Session.prototype.initNewData = function(){
 
-	this.saving = false;
+	this.savingEnabled = false;
 
 	// init saved boards:
 	const boards = JSON.parse(JSON.stringify(data.boards)); // make a copy
@@ -47,6 +52,6 @@ Session.prototype.initNewData = function(){
 		new Board(board.id, board);
 	}
 
-	this.saving = true;
+	this.savingEnabled = true;
 
 }

@@ -109,6 +109,7 @@ Board.prototype.createHTMLElement = function(){
 
 Board.prototype.updateTitle = function( newTitle ) {
 	this.data.title = newTitle;
+	session.save();
 }
 
 Board.prototype.addTrack = function( trackData ){
@@ -130,6 +131,8 @@ Board.prototype.addTrack = function( trackData ){
 		track.init(trackData);
 	}
 
+	session.save();
+
 }
 
 Board.prototype.removeBoard = function(){
@@ -145,5 +148,7 @@ Board.prototype.removeBoard = function(){
 	if( index !== -1 ) {
 		data.boards.splice(index, 1);
 	}
+
+	session.save();
 
 }

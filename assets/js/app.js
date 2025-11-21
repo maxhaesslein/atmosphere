@@ -38,6 +38,7 @@ const ButtonAddBoard = {
 
 	newBoard: function(){
 		new Board(++data.id);
+		session.save();
 	}
 
 };
