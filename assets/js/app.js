@@ -1,7 +1,7 @@
 
 // global variables:
 let boards,
-	globalControls,
+	controls,
 	data = {id: 0, boards: []},
 	session;
 
@@ -13,10 +13,10 @@ function init(){
 
 	const canvas = document.getElementById('canvas');
 	boards = document.getElementById('boards');
-	globalControls = document.getElementById('globalControls');
+	controls = document.getElementById('controls');
 
-	if( ! canvas || ! boards || ! globalControls ) {
-		console.warn('missing HTML elements!', canvas, boards, globalControls);
+	if( ! canvas || ! boards || ! controls ) {
+		console.warn('missing HTML elements!', canvas, boards, controls);
 		return;
 	}
 

@@ -27,17 +27,25 @@
 <body>
 <main id="canvas" class="canvas">
 
+	<section class="global-controls">
+
+		<section id="scenes" class="scenes">
+			<button class="active scene-0">Scene 0</button>
+			<button class="scene-1">Scene 1</button>
+			<button id="scene-new" class="add add-scene">Add Scene</button>
+		</section>
+
+		<section id="controls" class="controls">
+			<button class="play-pause">Global Play/Pause</button>
+			<label>Global Volume <input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
+		</section>
+
+	</section>
+
 	<section id="boards" class="boards">
 		<section class="board-new">
 			<button id="add-board" class="add add-board">Add Board</button>
 		</section>
-	</section>
-
-	<section id="globalControls" class="global-controls">
-		<div>
-			<button class="play-pause">Global Play/Pause</button>
-			<label>Global Volume <input class="volume" type="range" min="0" max="100" value="80" step="1"> <span class="range-value">80%</span></label>
-		</div>
 	</section>
 
 </main>
