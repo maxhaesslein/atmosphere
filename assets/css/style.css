@@ -16,6 +16,9 @@ html, body {
 }
 
 body {
+	font-family: system-ui, sans-serif;
+	font-weight: normal;
+
 	background: var(--color-global-background);
 	color: var(--color-global-text);
 	height: 100vh;
