@@ -57,8 +57,8 @@ Track.prototype.createHTMLElement = function(){
 		'value': this.data.volume,
 		'step': 1,
 		'unit': '%'
-	} );
-	volume.addEventListener( 'change', this.changeVolume.bind(this) );
+	}, this.changeVolume.bind(this) );
+	volume.addEventListener('change', this.afterVolumeChange.bind(this));
 	element.appendChild(volume);
 
 	element.appendChild(htmlElement);
@@ -77,7 +77,7 @@ Track.prototype.createHTMLElement = function(){
 }
 
 Track.prototype.init = function(){
-	this.youtube.init(this.timeline);
+	this.youtube.init(this.timeline, this.data.volume);
 }
 
 Track.prototype.playPause = function(){
@@ -91,8 +91,10 @@ Track.prototype.playPause = function(){
 	}
 }
 
-Track.prototype.changeVolume = function(){
+Track.prototype.changeVolume = function( volume ){
+	this.youtube.setVolume(volume);
+}
 
-	console.log(this.youtube)
-
+Track.prototype.afterVolumeChange = function(){
+	session.save();
 }

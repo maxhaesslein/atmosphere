@@ -11,18 +11,19 @@ function YouTube( url ) {
 	this.playing = false;
 
 	if( ! this.extractId() ) {
-		console.warn('yould not extract id')
+		console.warn('yould not extract id');
 		return;
 	}
 
 	this.internalId = Date.now().toString(36) + Math.random().toString(36).substring(2, 12).padStart(12, 0); // TODO: replace with function call
 }
 
-YouTube.prototype.init = function(timeline){
+YouTube.prototype.init = function(timeline, volume){
 
 	if( ! this.internalId ) return;
 
 	this.timeline = timeline;
+	this.startVolume = parseInt(volume.data);
 
 	if( window.YT && window.YT.Player ) {
 		// youtube api is already loaded
@@ -37,7 +38,7 @@ YouTube.prototype.init = function(timeline){
 YouTube.prototype.createHTMLElement = function(){
 
 	if( ! this.internalId ) {
-		console.log('no internal id!', this.internalId)
+		console.warn('no internal id!', this.internalId);
 		return;
 	}
 
@@ -105,6 +106,7 @@ YouTube.prototype.embed = function(){
 }
 
 YouTube.prototype.youtubeready = function(e){
+	this.setVolume(this.startVolume);
 	this.ready = true;
 }
 
@@ -121,6 +123,13 @@ YouTube.prototype.youtubestatechange = function(e){
 YouTube.prototype.play = function(){
 	this.player.playVideo();
 	this.updateTimeInterval = setInterval(this.updateTimeline.bind(this), 200);
+}
+
+YouTube.prototype.setVolume = function(volume){
+
+	if( ! this.player ) return;
+
+	this.player.setVolume(volume);
 }
 
 YouTube.prototype.updateTimeline = function(){

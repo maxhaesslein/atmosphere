@@ -1,7 +1,9 @@
-function Range( title, args ) {
+function Range( title, args, callback ) {
 
 	this.title = title;
 	this.args = args;
+
+	if( callback ) this.callback = callback;
 
 	return this.createHTMLElement();
 }
@@ -39,4 +41,6 @@ Range.prototype.init = function(){
 Range.prototype.updateRange = function(e){
 	this.args.value.data = this.input.value;
 	this.rangeValue.innerText = this.input.value+this.args.unit;
+
+	if( this.callback ) this.callback(this.input.value);
 }
