@@ -11,6 +11,7 @@ function Board( boardData, sceneId ){
 		'scene': sceneId,
 		'title': 'Board #'+id,
 		'tracks': [],
+		'trackId': 0,
 		'volume': {data: 80}, // we need the object, to pass this as a reference to range.js
 		'fadeTime': {data: 5000}, // we need the object, to pass this as a reference to range.js
 	};
@@ -104,7 +105,6 @@ Board.prototype.initTracks = function(){
 	const tracksToInit = JSON.parse(JSON.stringify(this.data.tracks)); // make a copy
 	this.data.tracks = [];
 	for( const trackData of tracksToInit ) {
-		if( ! trackData.url ) continue;
 		this.addTrack(trackData);
 	}
 
@@ -117,16 +117,17 @@ Board.prototype.updateTitle = function( newTitle ) {
 
 Board.prototype.addTrack = function( trackData ){
 
-	if( ! trackData ) {
+	if( ! trackData || trackData instanceof Event ) {
 		trackData = {
-			'parent': this.data.id
+			'id': ++this.data.trackId,
+			'scene': this.data.scene,
+			'board': this.data.id,
 		};
 	}
 	
 	const track = new Track(trackData);
 
 	// TODO: check, if this is a valid track before adding it (new Track() may return early)
-	if( ! trackData.url ) return;
 
 	this.tracks.insertBefore(track.createHTMLElement(), this.tracks.querySelector('.track-new'));
 	this.data.tracks.push(trackData);
