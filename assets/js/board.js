@@ -132,6 +132,8 @@ Board.prototype.addTrack = function( trackData ){
 	this.data.tracks.push(trackData);
 	track.init(trackData);
 
+	session.save();
+
 }
 
 Board.prototype.removeBoard = function(){
