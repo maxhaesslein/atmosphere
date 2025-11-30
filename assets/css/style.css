@@ -246,10 +246,12 @@ input[type="range"] {
 	gap: 5px;
 	align-items: flex-end;
 	padding: 0 10px;
+	margin-bottom: -1px;
 }
 
 	.scene-button {
 		border-radius: 15px 15px 0 0;
+		background: #111;
 	}
 	
 		.scene-button.add {
@@ -258,7 +260,7 @@ input[type="range"] {
 
 	.scene-button--active {
 		border-bottom: #333;
-		background: #111;
+		background: #222 !important;
 	}
 
 .scene {
