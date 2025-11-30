@@ -20,6 +20,8 @@ Session.prototype.save = function(){
 
 	const storeData = JSON.stringify(data);
 
+	console.log(storeData); // DEBUG
+
 	localStorage.setItem('atmosphere-data', storeData);
 
 }

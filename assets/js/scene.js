@@ -101,7 +101,7 @@ Scene.prototype.addBoard = function( boardData ) {
 
 	if( ! boardData || boardData instanceof Event ) {
 		boardData = {
-			'parent': this.data.id,
+			'scene': this.data.id,
 			'id': ++this.data.boardId
 		};
 	}
@@ -114,7 +114,7 @@ Scene.prototype.addBoard = function( boardData ) {
 		}
 	}
 
-	const board = new Board( boardData, this.data.id );
+	const board = new Board( boardData );
 
 	this.boards.insertBefore(board.createHTMLElement(), this.boards.querySelector('.board-new'));
 

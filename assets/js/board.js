@@ -1,24 +1,28 @@
-function Board( boardData, sceneId ){
+function Board( boardData ){
 
 	if( ! boardData.id ) {
 		console.warn('board data is missing id!');
 		return;
 	}
 
+	const sceneId = boardData.scene;
+
 	const id = boardData.id;
 
+	const boardId = 'board-'+id;
+
 	const defaultData = {
-		'scene': sceneId,
+		'board': boardId,
 		'title': 'Board #'+id,
-		'tracks': [],
+		'tracks': {},
 		'trackId': 0,
 		'volume': {data: 80}, // we need the object, to pass this as a reference to range.js
 		'fadeTime': {data: 5000}, // we need the object, to pass this as a reference to range.js
 	};
 
-	data.scenes[sceneId].boards[id] = { ...defaultData, ...boardData };
+	data.scenes[sceneId].boards[boardId] = { ...defaultData, ...boardData };
 
-	this.data = data.scenes[sceneId].boards[id];
+	this.data = data.scenes[sceneId].boards[boardId];
 
 	console.log('new board', this.data);
 
@@ -102,9 +106,12 @@ Board.prototype.createHTMLElement = function(){
 
 Board.prototype.initTracks = function(){
 
-	const tracksToInit = JSON.parse(JSON.stringify(this.data.tracks)); // make a copy
-	this.data.tracks = [];
-	for( const trackData of tracksToInit ) {
+	for( const trackId of Object.keys(this.data.tracks) ) {
+		const trackData = this.data.tracks[trackId];
+		if( ! trackData || ! trackData.url ) {
+			console.warn('track is missing url, skipping!');
+			continue;
+		}
 		this.addTrack(trackData);
 	}
 
@@ -121,17 +128,28 @@ Board.prototype.addTrack = function( trackData ){
 		trackData = {
 			'id': ++this.data.trackId,
 			'scene': this.data.scene,
-			'board': this.data.id,
+			'board': this.data.board,
 		};
 	}
 	
-	const track = new Track(trackData);
+	if( ! trackData.url ) {
+		// TODO: replace prompt() with custom designed overlay
+		const url = window.prompt('YouTube Video URL');
+		if( ! url ) return;
+		trackData.url = url;
+	}
 
-	// TODO: check, if this is a valid track before adding it (new Track() may return early)
+	const track = new Track( trackData );
 
-	this.tracks.insertBefore(track.createHTMLElement(), this.tracks.querySelector('.track-new'));
-	this.data.tracks.push(trackData);
-	track.init(trackData);
+	const htmlElement = track.createHTMLElement();
+	if( ! htmlElement ) {
+		console.warn('could not create track HTML element!');
+		return;
+	}
+
+	this.tracks.insertBefore(htmlElement, this.tracks.querySelector('.track-new'));
+
+	track.init();
 
 	session.save();
 

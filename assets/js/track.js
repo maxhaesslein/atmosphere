@@ -14,27 +14,34 @@ function Track( trackData ) {
 		'volume': {data: 80}, // we need the object, to pass this as a reference to range.js
 	};
 
-	data.scenes[sceneId].boards[boardId].tracks[id] = { ...defaultData, ...trackData };
+	const trackId = 'track-'+id;
 
-	this.data = data.scenes[sceneId].boards[boardId].tracks[id];
+	data.scenes[sceneId].boards[boardId].tracks[trackId] = { ...defaultData, ...trackData };
+
+	this.data = data.scenes[sceneId].boards[boardId].tracks[trackId];
+
+	console.log( 'new track', this.data );
 
 	this.data.playing = false; // always start in stopped state
 
-	if( ! this.data.url ) {
-		// TODO: replace prompt() with custom designed overlay
-		const url = window.prompt('YouTube Video URL');
-		if( ! url ) return;
-		this.data.url = url;
-	}
-
 	this.youtube = new YouTube(this.data.url);
+
+	if( ! this.youtube ) {
+		this.data.url = false;
+		return;
+	}
 
 }
 
-Track.prototype.createHTMLElement = function( youtube ){
+Track.prototype.createHTMLElement = function(){
 
 	if( this.element ) {
 		return this.element;
+	}
+
+	const htmlElement = this.youtube.createHTMLElement();
+	if( ! htmlElement ) {
+		return;
 	}
 
 	const element = document.createElement('div');
@@ -51,9 +58,10 @@ Track.prototype.createHTMLElement = function( youtube ){
 		'step': 1,
 		'unit': '%'
 	} );
+	volume.addEventListener( 'change', this.changeVolume.bind(this) );
 	element.appendChild(volume);
 
-	element.appendChild(this.youtube.createHTMLElement());
+	element.appendChild(htmlElement);
 
 	const timeline = document.createElement('progress');
 	timeline.classList.add('progress');
@@ -81,4 +89,10 @@ Track.prototype.playPause = function(){
 	} else {
 		this.element.classList.remove('playing');
 	}
+}
+
+Track.prototype.changeVolume = function(){
+
+	console.log(this.youtube)
+
 }

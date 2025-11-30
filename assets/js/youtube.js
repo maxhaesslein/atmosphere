@@ -10,12 +10,17 @@ function YouTube( url ) {
 	this.ready = false;
 	this.playing = false;
 
-	this.extractId();
+	if( ! this.extractId() ) {
+		console.warn('yould not extract id')
+		return;
+	}
 
 	this.internalId = Date.now().toString(36) + Math.random().toString(36).substring(2, 12).padStart(12, 0); // TODO: replace with function call
 }
 
 YouTube.prototype.init = function(timeline){
+
+	if( ! this.internalId ) return;
 
 	this.timeline = timeline;
 
@@ -30,6 +35,11 @@ YouTube.prototype.init = function(timeline){
 }
 
 YouTube.prototype.createHTMLElement = function(){
+
+	if( ! this.internalId ) {
+		console.log('no internal id!', this.internalId)
+		return;
+	}
 
 	if( this.element ) {
 		return this.element;
@@ -58,6 +68,7 @@ YouTube.prototype.extractId = function(){
 
 	this.youtubeid = match[1];
 
+	return this.youtubeid;
 }
 
 YouTube.prototype.loadAPI = function(){
