@@ -33,7 +33,7 @@ Board.prototype.createHTMLElement = function(){
 
 	const element = document.createElement('section');
 	element.classList.add('board');
-	element.id = 'board-'+this.data.id;
+	element.id = this.data.boardId;
 
 
 	const title = document.createElement('div');
@@ -164,7 +164,7 @@ Board.prototype.removeBoard = function(){
 
 	this.element.remove();
 
-	delete data.scenes[this.data.scene].boards[this.data.id];
+	delete data.scenes[this.data.scene].boards[this.data.board];
 
 	if( Object.keys(data.scenes[this.data.scene].boards).length < 1 ) {
 		data.scenes[this.data.scene].boardId = 0;
