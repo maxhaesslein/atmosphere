@@ -1,4 +1,4 @@
-function showPrompt(title = 'Eingabe', defaultValue = '', placeholder = 'Bitte eingeben...') {
+function showPrompt(title = 'Input', defaultValue = '', placeholder = '...') {
 	return new Promise((resolve) => {
 		const dialog = document.createElement('dialog');
 		dialog.className = 'prompt-modal';
@@ -32,7 +32,7 @@ function showPrompt(title = 'Eingabe', defaultValue = '', placeholder = 'Bitte e
 		cancelBtn.onclick = handleCancel;
 		dialog.oncancel = handleCancel;
 		input.onkeydown = (e) => {
-			if (e.key === 'Enter') {
+			if( e.key === 'Enter' ) {
 				e.preventDefault();
 				handleOk();
 			}
