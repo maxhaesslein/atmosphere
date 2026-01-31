@@ -1,12 +1,17 @@
 <?php
 
+$abspath = __DIR__.'/';
+
+define( 'ATMOSPHERE_ABSPATH', $abspath );
+
 $version = time(); // TODO: add version variable; currently we use this as a cache buster on every reload for development.
+
+include(ATMOSPHERE_ABSPATH.'inc/local_content.php');
 
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-
 
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -33,6 +38,10 @@ $version = time(); // TODO: add version variable; currently we use this as a cac
 	<script type="text/javascript" src="assets/js/elements/drag-drop-handler.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/elements/editable-text.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/elements/range.js?v=<?= $version ?>" defer></script>
+
+	<script type="text/javascript">
+		const local_files = <?php echo json_encode(get_local_content(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+	</script>
 
 </head>
 <body>
