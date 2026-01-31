@@ -122,7 +122,7 @@ Board.prototype.updateTitle = function( newTitle ) {
 	session.save();
 }
 
-Board.prototype.addTrack = function( trackData ){
+Board.prototype.addTrack = async function( trackData ){
 
 	if( ! trackData || trackData instanceof Event ) {
 		trackData = {
@@ -133,8 +133,8 @@ Board.prototype.addTrack = function( trackData ){
 	}
 	
 	if( ! trackData.url ) {
-		// TODO: replace prompt() with custom designed overlay
-		const url = window.prompt('YouTube Video URL');
+		
+		const url = await showPrompt('YouTube Video URL', 'https://', 'Enter a link to a YouTube video');
 		if( ! url ) return;
 		trackData.url = url;
 	}
