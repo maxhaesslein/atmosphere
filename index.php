@@ -46,6 +46,7 @@ $version = get_version()
 	<script type="text/javascript" src="assets/js/elements/checkbox.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/elements/drag-drop-handler.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/elements/editable-text.js?v=<?= $version ?>" defer></script>
+	<script type="text/javascript" src="assets/js/elements/prompt-modal.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/elements/range.js?v=<?= $version ?>" defer></script>
 
 </head>

@@ -42,18 +42,21 @@ const ButtonAddScene = {
 		button.addEventListener('click', ButtonAddScene.newScene);
 	},
 
-	newScene: function(){
+	newScene: async function(){
 
 		const sceneNumber = ++data.sceneId;
 
 		const sceneId = 'scene-'+sceneNumber;
 
-		// TODO: replace prompt() with custom designed overlay
-		let title = window.prompt('Scene title?');
-		if( ! title ) title = 'Scene #'+sceneNumber;
+		const title = await showPrompt('Scene title?', 'Scene #'+sceneNumber, 'Enter scene title');
+
+		if( title === null ) {
+			data.sceneId--;
+			return;
+		}
 
 		let sceneData = {
-			'title': title
+			'title': title || 'Scene #'+sceneNumber
 		};
 
 		new Scene(sceneId, sceneData, true);
