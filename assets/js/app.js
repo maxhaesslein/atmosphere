@@ -16,8 +16,6 @@ function init(){
 
 	console.info('starting app …');
 
-	console.log(local_files)
-
 	const canvas = document.getElementById('canvas');
 	scenes = document.getElementById('scenes');
 	scene = document.getElementById('scene');

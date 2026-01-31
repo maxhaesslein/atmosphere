@@ -4,9 +4,12 @@ $abspath = __DIR__.'/';
 
 define( 'ATMOSPHERE_ABSPATH', $abspath );
 
+include(ATMOSPHERE_ABSPATH.'inc/local_content.php');
+include(ATMOSPHERE_ABSPATH.'inc/helper.php');
+
+
 $version = time(); // TODO: add version variable; currently we use this as a cache buster on every reload for development.
 
-include(ATMOSPHERE_ABSPATH.'inc/local_content.php');
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -26,6 +29,11 @@ include(ATMOSPHERE_ABSPATH.'inc/local_content.php');
 
 	<link rel="stylesheet" href="assets/css/style.css?v=<?= $version ?>" type="text/css" media="all">
 
+	<script type="text/javascript">
+		const content_url = "<?= get_base_url('content/') ?>";
+		const local_files = <?php echo json_encode(get_local_content(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
+	</script>
+
 	<script type="text/javascript" src="assets/js/app.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/board.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/scene.js?v=<?= $version ?>" defer></script>
@@ -38,10 +46,6 @@ include(ATMOSPHERE_ABSPATH.'inc/local_content.php');
 	<script type="text/javascript" src="assets/js/elements/drag-drop-handler.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/elements/editable-text.js?v=<?= $version ?>" defer></script>
 	<script type="text/javascript" src="assets/js/elements/range.js?v=<?= $version ?>" defer></script>
-
-	<script type="text/javascript">
-		const local_files = <?php echo json_encode(get_local_content(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES); ?>;
-	</script>
 
 </head>
 <body>
