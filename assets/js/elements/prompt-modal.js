@@ -7,7 +7,7 @@ function showPrompt(title = 'Input', defaultValue = '', placeholder = '...') {
 				<h2 class="modal-title">${title}</h2>
 				<input type="text" class="modal-input" placeholder="${placeholder}" value="${defaultValue}">
 				<div class="modal-buttons">
-					<button class="modal-button modal-button-cancel">Abort</button>
+					<button class="modal-button modal-button-cancel">Cancel</button>
 					<button class="modal-button modal-button-ok">OK</button>
 				</div>
 			</div>
@@ -43,3 +43,49 @@ function showPrompt(title = 'Input', defaultValue = '', placeholder = '...') {
 		input.select();
 	});
 }
+
+function showConfirm(title = 'Confirmation', message = 'Do you want to continue?') {
+	return new Promise((resolve) => {
+		const dialog = document.createElement('dialog');
+		dialog.className = 'prompt-modal';
+		dialog.innerHTML = `
+			<div class="modal-content">
+				<h2 class="modal-title">${title}</h2>
+				<p class="modal-message">${message}</p>
+				<div class="modal-buttons">
+					<button class="modal-button modal-button-cancel">Cancel</button>
+					<button class="modal-button modal-button-ok">OK</button>
+				</div>
+			</div>
+		`;
+
+		document.body.appendChild(dialog);
+
+		const okBtn = dialog.querySelector('.modal-button-ok');
+		const cancelBtn = dialog.querySelector('.modal-button-cancel');
+
+		const cleanup = (result) => {
+			dialog.close();
+			dialog.remove();
+			resolve(result);
+		};
+
+		const handleOk = () => cleanup(true);
+		const handleCancel = () => cleanup(false);
+
+		okBtn.onclick = handleOk;
+		cancelBtn.onclick = handleCancel;
+		dialog.oncancel = handleCancel;
+
+		dialog.addEventListener('keydown', (e) => {
+			if( e.key === 'Enter' ) {
+				e.preventDefault();
+				handleOk();
+			}
+		});
+
+		dialog.showModal();
+		okBtn.focus();
+	});
+}
+

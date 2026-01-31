@@ -155,10 +155,14 @@ Board.prototype.addTrack = async function( trackData ){
 
 }
 
-Board.prototype.removeBoard = function(){
+Board.prototype.removeBoard = async function(){
 
-	// TODO: replace confirm() with custom designed overlay
-	if( ! window.confirm('Remove the board "'+this.data.title+'"?') ) {
+	const confirmed = await showConfirm(
+		'Remove board',
+		'Remove the board "'+this.data.title+'"?'
+	);
+
+	if( ! confirmed ) {
 		return;
 	}
 

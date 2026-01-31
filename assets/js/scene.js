@@ -129,10 +129,14 @@ Scene.prototype.addBoard = async function( boardData ) {
 
 }
 
-Scene.prototype.removeScene = function(){
+Scene.prototype.removeScene = async function(){
 
-	// TODO: replace confirm() with custom designed overlay
-	if( ! window.confirm('Remove the scene "'+this.data.title+'"?') ) {
+	const confirmed = await showConfirm(
+		'Remove scene',
+		'Remove the scene "'+this.data.title+'"?'
+	);
+
+	if( ! confirmed ) {
 		return;
 	}
 
