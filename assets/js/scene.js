@@ -97,7 +97,7 @@ Scene.prototype.updateTitle = function( newTitle ) {
 	session.save();
 }
 
-Scene.prototype.addBoard = function( boardData ) {
+Scene.prototype.addBoard = async function( boardData ) {
 
 	if( ! boardData || boardData instanceof Event ) {
 		boardData = {
@@ -107,8 +107,13 @@ Scene.prototype.addBoard = function( boardData ) {
 	}
 
 	if( ! boardData.title ) {
-		// TODO: replace prompt() with custom designed overlay
-		const title = window.prompt('Board title?');
+		const title = await showPrompt('Board title?', 'Board #'+this.data.boardId, 'Enter board title');
+
+		if( title === null ) {
+			this.data.boardId--;
+			return;
+		}
+
 		if( title ) {
 			boardData.title = title;
 		}
