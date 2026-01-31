@@ -15,3 +15,17 @@ function get_base_url( $append = false ) {
 
 	return $protocol . '://' . $_SERVER['HTTP_HOST'] . $dir;
 }
+
+
+function get_version(){
+
+	$version = file_get_contents(ATMOSPHERE_ABSPATH.'version.txt');
+
+	$version = trim(strip_tags($version));
+
+	if( defined('ATMOSPHERE_DEBUG') && ATMOSPHERE_DEBUG ) {
+		$version .= '.'.time(); // cache buster, while in debug mode
+	}
+
+	return $version;
+}

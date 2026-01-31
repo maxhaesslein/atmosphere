@@ -3,12 +3,13 @@
 $abspath = __DIR__.'/';
 
 define( 'ATMOSPHERE_ABSPATH', $abspath );
+define( 'ATMOSPHERE_DEBUG', true );
 
 include(ATMOSPHERE_ABSPATH.'inc/local_content.php');
 include(ATMOSPHERE_ABSPATH.'inc/helper.php');
 
 
-$version = time(); // TODO: add version variable; currently we use this as a cache buster on every reload for development.
+$version = get_version()
 
 
 ?><!DOCTYPE html>
